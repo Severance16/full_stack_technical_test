@@ -2,8 +2,11 @@ import { Router } from "express";
 import { TaskController } from "../controllers/TaskController";
 import { TaskValidator } from "../validators/taskValidator";
 import { handleInputErrors } from "../middlewares/validation";
+import { authenticate } from "../middlewares/auth";
 
 const router = Router();
+
+router.use(authenticate)
 
 router.post(
   "/",

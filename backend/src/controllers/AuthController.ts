@@ -1,6 +1,7 @@
 import type { Request, Response } from "express"
 import User from "../models/User"
 import { checkPassword, hashPassword } from "../utils/auth"
+import { generateJWT } from "../utils/jwt"
 
 export class AuthController {
     static login = async (req: Request, res: Response) => {
@@ -18,7 +19,8 @@ export class AuthController {
                 const error = new Error("La contraseña no es correcta.")
                 return res.status(401).json({error: error.message})
             }
-            res.send("Usuario autenticado")
+
+            res.send(generateJWT({id: user.id}))
         } catch (error) {
             res.status(500).json({error: "Hubo un error."})
         }
