@@ -1,16 +1,34 @@
-import { Router } from "express"
-import { TaskController } from "../controllers/taskController"
+import { Router } from "express";
+import { TaskController } from "../controllers/taskController";
+import { TaskValidator } from "../validators/taskValidator";
+import { handleInputErrors } from "../middlewares/validation";
 
-const router = Router()
+const router = Router();
 
-router.post("/", TaskController.createTask)
+router.post(
+  "/",
+  TaskValidator.body,
+  handleInputErrors,
+  TaskController.createTask
+);
 
-router.get("/", TaskController.getAllTasks)
+router.get("/", TaskController.getAllTasks);
 
-router.get("/:id", TaskController.getTask)
+router.get("/:id", TaskValidator.Id, handleInputErrors, TaskController.getTask);
 
-router.put("/:id", TaskController.updateTask)
+router.put(
+  "/:id",
+  TaskValidator.Id,
+  TaskValidator.body,
+  handleInputErrors,
+  TaskController.updateTask
+);
 
-router.delete("/:id", TaskController.deleteTask)
+router.delete(
+  "/:id",
+  TaskValidator.Id,
+  handleInputErrors,
+  TaskController.deleteTask
+);
 
-export default router
+export default router;
