@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TaskController } from "../controllers/taskController";
+import { TaskController } from "../controllers/TaskController";
 import { TaskValidator } from "../validators/taskValidator";
 import { handleInputErrors } from "../middlewares/validation";
 
