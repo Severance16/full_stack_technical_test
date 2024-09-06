@@ -8,9 +8,13 @@ dotenv.config();
 
 // Llamado a la funcion para conexion a base de datos
 connectDB()
+express
 
 
 const app = express();
+
+// Habilitar lectura de datos en formato JSON
+app.use(express.json())
 
 // Uso de las rutas
 app.use("/api/tasks", tasktRoutes)

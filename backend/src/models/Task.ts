@@ -1,17 +1,17 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 const tasksStatus = {
-  pending: "pending",
-  in_progress: "In progress",
-  finished: "Finished",
+  PENDING: "pending",
+  IN_PROGRESS: "In progress",
+  FINISHED: "Finished",
 } as const;
 
-export type TaskStatus = (typeof tasksStatus)[keyof typeof tasksStatus];
+export type TasksStatus = (typeof tasksStatus)[keyof typeof tasksStatus];
 
 export interface ITask extends Document {
   name: string;
   description: string;
-  status: TaskStatus;
+  status: TasksStatus;
 }
 
 const TaskSchema: Schema = new Schema(
@@ -21,8 +21,9 @@ const TaskSchema: Schema = new Schema(
       require: true,
     },
     status: {
+      type: String,
       enum: Object.values(tasksStatus),
-      default: tasksStatus.pending,
+      default: tasksStatus.PENDING,
     },
     description: {
       type: String,

@@ -1,19 +1,59 @@
 import type { Request, Response } from "express"
+import Task from "../models/Task"
 
 export class TaskController {
     static createTask = async (req: Request, res: Response) => {
-        res.send("Crear tarea")
+        const task = new Task(req.body)
+        try {
+            await task.save()
+            res.send("Tarea creada")
+        } catch (error) {
+            res.status(500).json({error: "Hubo un error."})
+        }
     }
     static getTask = async (req: Request, res: Response) => {
-        res.send("Obtener tarea")
+        const { id } = req.params
+        try {
+            const task = await Task.findById(id)
+            if (!task) {
+                return res.status(404).json(new Error("Tarea no encontrada."))
+            }
+            res.json(task)
+        } catch (error) {
+            res.status(500).json({error: "Hubo un error."})
+        }
     }
     static getAllTasks = async (req: Request, res: Response) => {
-        res.send("Obtener tareas")
+        try {
+            const task = await Task.find()
+            res.json(task)
+        } catch (error) {
+            res.status(500).json({error: "Hubo un error."})
+        }
     }
     static updateTask = async (req: Request, res: Response) => {
-        res.send("Actualizar tarea")
+        const { id } = req.params
+        try {
+            const task = await Task.findByIdAndUpdate(id, req.body)
+            if (!task) {
+                return res.status(404).json(new Error("Tarea no encontrada."))
+            }
+            res.send("Tarea actualizada.")
+        } catch (error) {
+            res.status(500).json({error: "Hubo un error."})
+        }
     }
     static deleteTask = async (req: Request, res: Response) => {
-        res.send("Eliminar tarea")
+        const { id } = req.params
+        try {
+            const task = await Task.findById(id)
+            if (!task) {
+                return res.status(404).json(new Error("Tarea no encontrada."))
+            }
+            await task.deleteOne()
+            res.send("Tarea Eliminada.")
+        } catch (error) {
+            res.status(500).json({error: "Hubo un error."})
+        }
     }
 }
