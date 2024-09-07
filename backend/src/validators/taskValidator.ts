@@ -8,4 +8,7 @@ export class TaskValidator {
     static Id = [
         param("id").isMongoId().withMessage("Id no válido.")
     ]
+    static responsible = [
+        body("responsible").notEmpty().withMessage("La descripción de la tarea es obligatoria.")
+    ]
 }

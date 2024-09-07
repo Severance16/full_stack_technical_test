@@ -15,6 +15,14 @@ router.post(
   TaskController.createTask
 );
 
+router.post(
+  "/delegate",
+  TaskValidator.body,
+  TaskValidator.responsible,
+  handleInputErrors,
+  TaskController.createTask
+);
+
 router.get("/", TaskController.getAllTasks);
 
 router.get("/:id", TaskValidator.Id, handleInputErrors, TaskController.getTask);
