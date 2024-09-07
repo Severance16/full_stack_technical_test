@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import tasktRoutes from "./routes/taskRoutes"
 import authRoutes from "./routes/authRoutes"
+import delegateRoutes from "./routes/delegateRoutes"
 
 // Importar configuracion para uso de variables de entorno
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(express.json())
 // Uso de las rutas
 app.use("/api/auth", authRoutes)
 app.use("/api/tasks", tasktRoutes)
+app.use("/api/delegate", delegateRoutes)
 
 export default app;
 

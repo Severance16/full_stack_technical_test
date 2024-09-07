@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 const tasksStatus = {
   PENDING: "pending",
@@ -12,6 +12,8 @@ export interface ITask extends Document {
   name: string;
   description: string;
   status: TasksStatus;
+  responsible: string;
+  delegate: string
 }
 
 const TaskSchema: Schema = new Schema(
@@ -29,6 +31,14 @@ const TaskSchema: Schema = new Schema(
       type: String,
       require: true,
     },
+    responsible: {
+      type: Types.ObjectId,
+      ref: "User"
+    },
+    delegate: {
+      type: Types.ObjectId,
+      ref: "User"
+    }
   },
   { timestamps: true }
 );
