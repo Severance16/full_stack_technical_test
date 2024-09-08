@@ -7,6 +7,7 @@ import clientAxios from "@/util/clientAxios";
 import { useForm } from "react-hook-form";
 import Errors from "@/components/errors";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 type LoginFormData = {
   email: string;
@@ -95,6 +96,14 @@ export default function Login() {
           className="bg-teal-400 hover:bg-teal-600 transition-colors w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
         />
       </form>
+      <nav className="mt-5 flex flex-col space-y-4">
+        <Link 
+          href={"/register"}
+          className="text-teal-400 text-center"
+        >
+          ¿No tienes cuenta? Registrate
+        </Link>
+      </nav>
     </>
   );
 }
