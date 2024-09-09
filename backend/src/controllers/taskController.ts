@@ -58,7 +58,7 @@ export class TaskController {
                     {delegate: req.user.id},
                     {responsible: req.user.id}
                 ]
-            })
+            }).populate("responsible", "_id email name").populate("delegate", "_id email name")
             res.json(task)
         } catch (error) {
             res.status(500).json({error: "Hubo un error."})
