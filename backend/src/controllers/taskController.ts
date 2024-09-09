@@ -38,11 +38,11 @@ export class TaskController {
         const { id } = req.params
         try {
             const task = await Task.findById(id)
-            if(task.delegate !== req.user.id || task.responsible !== req.user.id) {
+            if (!task) {
                 const error = new Error("Tarea no encontrada.")
                 return res.status(404).json({error: error.message})
             }
-            if (!task) {
+            if(task.delegate.toString() !== req.user.id.toString() && task.responsible.toString() !== req.user.id.toString()) {
                 const error = new Error("Tarea no encontrada.")
                 return res.status(404).json({error: error.message})
             }
@@ -68,12 +68,12 @@ export class TaskController {
         const { id } = req.params
         try {
             const task = await Task.findByIdAndUpdate(id, req.body)
-            if(task.delegate !== req.user.id || task.responsible !== req.user.id) {
+            if (!task) {
                 const error = new Error("Tarea no encontrada.")
                 return res.status(404).json({error: error.message})
             }
-            if (!task) {
-                const error = new Error("Tarea no encontrada.")
+            if(task.delegate.toString() !== req.user.id.toString() && task.responsible.toString() !== req.user.id.toString()) {
+                const error = new Error("No tienes permisos suficientes.")
                 return res.status(404).json({error: error.message})
             }
             res.send("Tarea actualizada.")
@@ -85,12 +85,12 @@ export class TaskController {
         const { id } = req.params
         try {
             const task = await Task.findById(id)
-            if(task.delegate !== req.user.id || task.responsible !== req.user.id) {
+            if (!task) {
                 const error = new Error("Tarea no encontrada.")
                 return res.status(404).json({error: error.message})
             }
-            if (!task) {
-                const error = new Error("Tarea no encontrada.")
+            if(task.delegate.toString() !== req.user.id.toString() && task.responsible.toString() !== req.user.id.toString()) {
+                const error = new Error("No tienes permisos suficientes.")
                 return res.status(404).json({error: error.message})
             }
             await task.deleteOne()
