@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <>
         <Header />
-        <section className="max-w-screen-2xl mx-auto mt-10 p-5">
+        <section className="max-w-screen-2xl mx-auto mt-4 p-5">
             {children}
         </section>
         <Footer />
